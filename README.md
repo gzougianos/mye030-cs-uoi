@@ -1,2 +1,5 @@
-# mye030-cs-uoi
-My team's project on [mye030](http://www.cs.uoi.gr/~pvassil/courses/db_III/info.html) 
+Ζουγιανός Γεώργιος 2442 (g.zougianos@gmail.com)
+
+Τσεβραίνης Ιωάννης 2562 (ts3v@outlook.com)
+
+Γεροκώστας Γεώργιος 2415 (ggerokostas@gmail.com)
