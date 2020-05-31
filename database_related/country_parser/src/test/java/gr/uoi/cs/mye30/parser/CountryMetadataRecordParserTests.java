@@ -16,15 +16,15 @@ class CountryMetadataRecordParserTests {
 
 	@Test
 	void test() throws IOException {
-		CountryMetadataRecordParser creator = new CountryMetadataRecordParser();
-		List<CountryMetadata> records = parseRecords(getResourceFile("country_metadata_grc.csv"), creator);
+		CountryMetadataRecordParser parser = new CountryMetadataRecordParser();
+		List<CountryMetadata> records = parseRecords(getResourceFile("country_metadata_grc.csv"), parser);
 		assertEquals(1, records.size());
-		CountryMetadata countryMetadata = records.get(0);
-		assertEquals("GRC", countryMetadata.getCode());
-		assertEquals("Greece", countryMetadata.getName());
-		assertEquals("regiona", countryMetadata.getRegion());
-		assertEquals("incomegroup1", countryMetadata.getIncomeGroup());
-		assertEquals("specialnotes", countryMetadata.getSpecialNotes());
+		CountryMetadata country = records.get(0);
+		assertEquals("GRC", country.getCode());
+		assertEquals("Greece", country.getName());
+		assertEquals("regiona", country.getRegion());
+		assertEquals("incomegroup1", country.getIncomeGroup());
+		assertEquals("specialnotes", country.getSpecialNotes());
 	}
 
 }
