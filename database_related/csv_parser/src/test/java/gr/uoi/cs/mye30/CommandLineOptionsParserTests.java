@@ -81,6 +81,14 @@ class CommandLineOptionsParserTests {
 		assertEquals("url", parser.getUrl());
 	}
 
+	@Test
+	void ignoringNonValid() throws IOException {
+		CommandLineOptionsParser parser = withArguments("-c", "GRC,ALBA,ESP", "-u", "url");
+		assertFalse(exited);
+		assertEquals(Arrays.asList("GRC", "ESP"), parser.getCountryCodes());
+		assertEquals("url", parser.getUrl());
+	}
+
 	private CommandLineOptionsParser withArguments(String... args) throws IOException {
 		return new CommandLineOptionsParser(args, () -> exited = true, new SilentHelpFormatter());
 	}

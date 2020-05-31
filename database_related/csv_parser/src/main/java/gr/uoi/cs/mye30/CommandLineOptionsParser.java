@@ -8,6 +8,7 @@ import java.nio.file.Files;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.logging.Logger;
 import java.util.stream.Stream;
 
 import org.apache.commons.cli.CommandLine;
@@ -20,6 +21,8 @@ import org.apache.commons.cli.Options;
 import org.apache.commons.cli.ParseException;
 
 public class CommandLineOptionsParser {
+	private static final Logger logger = Logger.getGlobal();
+	private static final String COUNTRY_CODE_PATTERN = "[A-Z]{3}";
 	//@formatter:off
 	private static final Option COUNTRY_CODES_OPTION = Option.builder("c")
 			.longOpt("country")
@@ -96,7 +99,21 @@ public class CommandLineOptionsParser {
 					.collect(toList());
 			//@formatter:on
 		}
+		keepOnlyTheValidOnes();
 		countryCodes = Collections.unmodifiableList(countryCodes);
+	}
+
+	private void keepOnlyTheValidOnes() {
+		//@formatter:off
+		List<String> nonValid = countryCodes.stream()
+				.filter(code -> !code.matches(COUNTRY_CODE_PATTERN))
+				.collect(toList());
+		//@formatter:on
+		if (!nonValid.isEmpty()) {
+			nonValid.forEach(code -> logger.warning(code + " is not a valid code hence it will be ignored."));
+			countryCodes.removeAll(nonValid);
+		}
+
 	}
 
 	public List<String> getCountryCodes() {
