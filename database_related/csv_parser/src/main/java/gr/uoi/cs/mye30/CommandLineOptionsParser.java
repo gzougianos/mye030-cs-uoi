@@ -19,7 +19,7 @@ import org.apache.commons.cli.OptionGroup;
 import org.apache.commons.cli.Options;
 import org.apache.commons.cli.ParseException;
 
-public class CountryCodesOptionParser {
+public class CommandLineOptionsParser {
 	//@formatter:off
 	private static final Option COUNTRY_CODES_OPTION = Option.builder("c")
 			.longOpt("country")
@@ -35,10 +35,18 @@ public class CountryCodesOptionParser {
 			.required()
 			.desc("A file that contains country names (each line contains a country name)")
 			.build();
+	
+	private static final Option URL_OPTION  = Option.builder("u")
+			.longOpt("url")
+			.hasArg()
+			.required()
+			.desc("The MySQL Url to connect to.")
+			.build();
 	//@formatter:on
 	private List<String> countryCodes;
+	private String url;
 
-	public CountryCodesOptionParser(final String[] arguments, final SystemExit systemExit, HelpFormatter helpFormatter)
+	public CommandLineOptionsParser(final String[] arguments, final SystemExit systemExit, HelpFormatter helpFormatter)
 			throws IOException {
 		countryCodes = new ArrayList<String>();
 
@@ -52,13 +60,15 @@ public class CountryCodesOptionParser {
 		Options options = new Options();
 		options.addOptionGroup(countriesOptionGroup);
 		options.addOptionGroup(fileOptionGroup);
+		options.addOption(URL_OPTION);
 
 		CommandLineParser parser = new DefaultParser();
 		try {
 			CommandLine commandLine = parser.parse(options, arguments);
-			if (commandLine.getOptions().length != 1) {
+			if (commandLine.getOptions().length != 2) {
 				throw new ParseException("Exactly one argument is allowed.");
 			}
+			url = commandLine.getOptionValue("u");
 			parseCountryCodes(commandLine);
 		} catch (ParseException e) {
 			helpFormatter.printHelp("java -jar country_parser.jar -c ALB,GRC", options);
@@ -91,5 +101,9 @@ public class CountryCodesOptionParser {
 
 	public List<String> getCountryCodes() {
 		return countryCodes;
+	}
+
+	public String getUrl() {
+		return url;
 	}
 }
