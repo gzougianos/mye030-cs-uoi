@@ -14,7 +14,7 @@ import org.apache.commons.cli.Options;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-class CommandLineOptionsParserTests {
+class CommandLineOptionsTests {
 	private boolean exited;
 
 	@Test
@@ -43,7 +43,7 @@ class CommandLineOptionsParserTests {
 
 	@Test
 	void singleCountryCode() throws IOException {
-		CommandLineOptionsParser parser = withArguments("-c", "grc", "-u", "url"); // upper case check as well
+		CommandLineOptions parser = withArguments("-c", "grc", "-u", "url"); // upper case check as well
 		assertFalse(exited);
 		assertEquals(Arrays.asList("GRC"), parser.getCountryCodes());
 		assertEquals("url", parser.getUrl());
@@ -51,7 +51,7 @@ class CommandLineOptionsParserTests {
 
 	@Test
 	void unableToModify() throws IOException {
-		CommandLineOptionsParser parser = withArguments("-c", "grc", "-u", "url"); // upper case check as well
+		CommandLineOptions parser = withArguments("-c", "grc", "-u", "url"); // upper case check as well
 		assertFalse(exited);
 		assertEquals(Arrays.asList("GRC"), parser.getCountryCodes());
 		assertThrows(UnsupportedOperationException.class, () -> parser.getCountryCodes().add("something"));
@@ -61,7 +61,7 @@ class CommandLineOptionsParserTests {
 
 	@Test
 	void multipleCountryCodes() throws IOException {
-		CommandLineOptionsParser parser = withArguments("-c", "GRC,ALB  ", "-u", "url"); // trim check too
+		CommandLineOptions parser = withArguments("-c", "GRC,ALB  ", "-u", "url"); // trim check too
 		assertFalse(exited);
 		assertEquals(Arrays.asList("GRC", "ALB"), parser.getCountryCodes());
 		assertEquals("url", parser.getUrl());
@@ -74,7 +74,7 @@ class CommandLineOptionsParserTests {
 
 	@Test
 	void fromFile() throws IOException {
-		CommandLineOptionsParser parser = withArguments("-f", getResourceFile("country_codes_test").getAbsolutePath(),
+		CommandLineOptions parser = withArguments("-f", getResourceFile("country_codes_test").getAbsolutePath(),
 				"-u", "url");
 		assertFalse(exited);
 		assertEquals(Arrays.asList("GRC", "ALB", "ESP"), parser.getCountryCodes());
@@ -83,14 +83,14 @@ class CommandLineOptionsParserTests {
 
 	@Test
 	void ignoringNonValid() throws IOException {
-		CommandLineOptionsParser parser = withArguments("-c", "GRC,ALBA,ESP", "-u", "url");
+		CommandLineOptions parser = withArguments("-c", "GRC,ALBA,ESP", "-u", "url");
 		assertFalse(exited);
 		assertEquals(Arrays.asList("GRC", "ESP"), parser.getCountryCodes());
 		assertEquals("url", parser.getUrl());
 	}
 
-	private CommandLineOptionsParser withArguments(String... args) throws IOException {
-		return new CommandLineOptionsParser(args, () -> exited = true, new SilentHelpFormatter());
+	private CommandLineOptions withArguments(String... args) throws IOException {
+		return new CommandLineOptions(args, () -> exited = true, new SilentHelpFormatter());
 	}
 
 	@BeforeEach

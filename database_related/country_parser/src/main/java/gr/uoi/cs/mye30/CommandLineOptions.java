@@ -20,7 +20,7 @@ import org.apache.commons.cli.OptionGroup;
 import org.apache.commons.cli.Options;
 import org.apache.commons.cli.ParseException;
 
-public class CommandLineOptionsParser {
+public class CommandLineOptions {
 	private static final Logger logger = Logger.getGlobal();
 	private static final String COUNTRY_CODE_PATTERN = "[A-Z]{3}";
 	//@formatter:off
@@ -49,7 +49,7 @@ public class CommandLineOptionsParser {
 	private List<String> countryCodes;
 	private String url;
 
-	public CommandLineOptionsParser(final String[] arguments, final SystemExit systemExit, HelpFormatter helpFormatter)
+	public CommandLineOptions(final String[] arguments, final SystemExit systemExit, HelpFormatter helpFormatter)
 			throws IOException {
 		countryCodes = new ArrayList<String>();
 
