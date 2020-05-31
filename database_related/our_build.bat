@@ -1,0 +1,1 @@
+java -jar country_parser.jar -u "jdbc:mysql://localhost/vaseis2?user=root&password=root" -f our_countries
