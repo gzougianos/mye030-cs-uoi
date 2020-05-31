@@ -42,7 +42,7 @@ public class CountryCsvFilesFetcher {
 		zip.extractAll(extractDir.getAbsolutePath());
 
 		findEachFile(extractDir);
-
+		logger.info("Unzipped.");
 	}
 
 	private void findEachFile(File extractDir) {
