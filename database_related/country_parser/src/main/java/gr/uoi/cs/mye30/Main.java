@@ -24,7 +24,11 @@ public class Main {
 		CommandLineOptions cmdOptions = new CommandLineOptions(args, () -> System.exit(0), new HelpFormatter());
 		Database database = new Database(cmdOptions.getUrl());
 
-		for (String countryCode : cmdOptions.getCountryCodes()) {
+		List<String> countryCodes = cmdOptions.getCountryCodes();
+		for (int i = 0; i < countryCodes.size(); i++) {
+			String countryCode = countryCodes.get(i);
+			logger.info("------------------------------");
+			logger.info("Fetching " + i + " of " + countryCodes.size() + " country codes.");
 			if (database.countryExists(countryCode)) {
 				logger.warning("Country with code " + countryCode + " already exists hence it will be ignored!");
 				continue;
@@ -56,6 +60,7 @@ public class Main {
 			logger.info("Commiting transaction...");
 			database.commit();
 			logger.info("Country with code " + countryCode + " commited successfully!");
+			logger.info("------------------------------");
 		}
 
 	}
