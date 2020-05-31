@@ -1,4 +1,4 @@
-package gr.uoi.cs.mye30;
+package gr.uoi.cs.mye30.parser;
 
 import java.io.File;
 import java.io.IOException;
@@ -10,23 +10,20 @@ import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
-import gr.uoi.cs.mye30.record.RecordCreator;
-
-public class CsvRecordFileParser {
+public class CsvFileParser {
 	private static final Pattern SEPARATOR_PATTERN = Pattern.compile("\"(.*?)\",");
 
-	private CsvRecordFileParser() {
+	private CsvFileParser() {
 	}
 
-	public static <T> List<T> parseRecords(File csvFile, RecordCreator<T> recordCreator, int linesToSkip)
-			throws IOException {
+	public static <T> List<T> parseRecords(File csvFile, RecordParser<T> recordParser) throws IOException {
 		List<String> allLines = Files.readAllLines(csvFile.toPath());
-		IntStream.range(0, linesToSkip).forEach(i -> allLines.remove(0));
+		IntStream.range(0, recordParser.numberOfLinesToSkip()).forEach(i -> allLines.remove(0));
 
 		//@formatter:off
 		return allLines.stream()
-				.map(CsvRecordFileParser::split)
-				.map(recordCreator::create)
+				.map(CsvFileParser::split)
+				.map(recordParser::create)
 				.collect(Collectors.toList());
 		//@formatter:on
 	}
