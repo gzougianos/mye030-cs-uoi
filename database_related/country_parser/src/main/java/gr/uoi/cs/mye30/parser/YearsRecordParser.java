@@ -8,19 +8,20 @@ import gr.uoi.cs.mye30.record.YearsRecord;
 public class YearsRecordParser implements RecordParser<YearsRecord> {
 
 	@Override
-	public YearsRecord create(String[] values) {
-		String countryName = values[0];
-		String countryCode = values[1];
-		String indicatorName = values[2];
-		String indicatorCode = values[3];
+	public YearsRecord create(Map<String, String> values) {
+		String countryName = values.get("Country Name");
+		String countryCode = values.get("Country Code");
+		String indicatorName = values.get("Indicator Name");
+		String indicatorCode = values.get("Indicator Code");
 
 		Map<Integer, Double> yearValues = new HashMap<>();
-		for (int i = 4; i < values.length; i++) {
-			if (values[i].isEmpty())
+		for (int i = 0; i < values.size(); i++) {
+			int year = 1960 + i;
+			String valueString = values.get(String.valueOf(year));
+			if (valueString == null || valueString.isEmpty())
 				continue;
 
-			int year = 1956 + i;
-			double value = Double.parseDouble(values[i]);
+			double value = Double.parseDouble(valueString);
 			yearValues.put(year, value);
 		}
 		return new YearsRecord(countryName, countryCode, indicatorName, indicatorCode, yearValues);
@@ -31,4 +32,8 @@ public class YearsRecordParser implements RecordParser<YearsRecord> {
 		return 5;
 	}
 
+	@Override
+	public int headersLineIndex() {
+		return 4;
+	}
 }

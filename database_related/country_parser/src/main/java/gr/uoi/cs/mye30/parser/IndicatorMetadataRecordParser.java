@@ -1,17 +1,23 @@
 package gr.uoi.cs.mye30.parser;
 
+import java.util.Map;
+
 import gr.uoi.cs.mye30.record.IndicatorMetadata;
 
 public class IndicatorMetadataRecordParser implements RecordParser<IndicatorMetadata> {
 
 	@Override
-	public IndicatorMetadata create(String[] values) {
-		return new IndicatorMetadata(values[0], values[1], values[2], values[3]);
+	public int numberOfLinesToSkip() {
+		return 1;
 	}
 
 	@Override
-	public int numberOfLinesToSkip() {
-		return 1;
+	public IndicatorMetadata create(Map<String, String> values) {
+		String code = values.get("INDICATOR_CODE");
+		String name = values.get("INDICATOR_NAME");
+		String sourceNote = values.get("SOURCE_NOTE");
+		String sourceOrganization = values.get("SOURCE_ORGANIZATION");
+		return new IndicatorMetadata(code, name, sourceNote, sourceOrganization);
 	}
 
 }

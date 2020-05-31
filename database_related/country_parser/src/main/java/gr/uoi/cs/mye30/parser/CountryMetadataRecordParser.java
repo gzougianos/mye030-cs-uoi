@@ -1,12 +1,18 @@
 package gr.uoi.cs.mye30.parser;
 
+import java.util.Map;
+
 import gr.uoi.cs.mye30.record.CountryMetadata;
 
 public class CountryMetadataRecordParser implements RecordParser<CountryMetadata> {
-
 	@Override
-	public CountryMetadata create(String[] values) {
-		return new CountryMetadata(values[0], values[4], values[1], values[2], values[3]);
+	public CountryMetadata create(Map<String, String> values) {
+		String code = values.get("Country Code");
+		String name = values.get("TableName");
+		String region = values.get("Region");
+		String incomeGroup = values.get("IncomeGroup");
+		String specialNotes = values.get("SpecialNotes");
+		return new CountryMetadata(code, name, region, incomeGroup, specialNotes);
 	}
 
 	@Override
