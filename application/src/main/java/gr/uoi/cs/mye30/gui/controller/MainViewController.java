@@ -66,7 +66,8 @@ public class MainViewController {
 				showMessageToMainPanel("No values found.");
 				return;
 			}
-			mainView.setMainPanel(ChartPanelFactory.create(mainView.getSelectedChartType(), yearValues));
+			mainView.setMainPanel(ChartPanelFactory.create(mainView.getSelectedChartType(), yearValues, lowSelectedYear,
+					highSelectedYear));
 		} catch (SQLException e) {
 			e.printStackTrace();
 			GuiUtils.showError(mainView, e);

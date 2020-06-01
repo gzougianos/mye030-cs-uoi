@@ -5,17 +5,23 @@ public class YearValue {
 	private Indicator indicator;
 	private int year;
 	private double value;
+	private boolean fake;
 
-	public YearValue(Country country, Indicator indicator, int year, double value) {
+	public YearValue(Country country, Indicator indicator, int year, double value, boolean fake) {
 		super();
 		this.country = country;
 		this.indicator = indicator;
 		this.year = year;
 		this.value = value;
+		this.fake = fake;
 	}
 
 	public Country getCountry() {
 		return country;
+	}
+
+	public boolean isFake() {
+		return fake;
 	}
 
 	public Indicator getIndicator() {

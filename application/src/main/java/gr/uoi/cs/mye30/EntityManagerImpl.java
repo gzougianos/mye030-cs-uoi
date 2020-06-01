@@ -100,11 +100,10 @@ public class EntityManagerImpl implements EntityManager {
 		countries.forEach(country -> {
 			indicators.forEach(indicator -> {
 				IntStream.range(yearLow, yearHigh + 1).forEach(year -> {
-					yearValues.add(new YearValue(country, indicator, year, 0));
+					yearValues.add(new YearValue(country, indicator, year, 0, true));
 				});
 			});
 		});
-
 		try (Connection connection = Database.getConnection();
 				PreparedStatement statement = connection.prepareStatement(totalQuery);) {
 			try (ResultSet rs = statement.executeQuery()) {
@@ -115,7 +114,7 @@ public class EntityManagerImpl implements EntityManager {
 					double value = rs.getDouble(4);
 					Indicator indicator = this.indicators.get(indicatorId);
 					Country country = this.countries.get(countryId);
-					YearValue yearValue = new YearValue(country, indicator, year, value);
+					YearValue yearValue = new YearValue(country, indicator, year, value, false);
 					yearValues.add(yearValue);
 				}
 			}
