@@ -35,4 +35,8 @@ ISL
 
 [all_country_codes](https://github.com/gzougianos/mye030-cs-uoi/blob/master/database_related/all_country_codes.txt) is a text file that contains the country code of each country that can be found in [https://data.worldbank.org/country](https://data.worldbank.org/country) .
 
+[schema.sql](https://github.com/gzougianos/mye030-cs-uoi/blob/master/database_related/schema.sql) contains the database schema, which looks like:
+
+![schema](https://raw.githubusercontent.com/gzougianos/mye030-cs-uoi/master/database_related/schema.png)
+
 
