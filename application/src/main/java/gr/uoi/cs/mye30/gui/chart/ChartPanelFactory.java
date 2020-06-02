@@ -14,6 +14,7 @@ import org.jfree.chart.JFreeChart;
 import org.jfree.chart.axis.CategoryAxis;
 import org.jfree.chart.axis.NumberAxis;
 import org.jfree.chart.plot.PlotOrientation;
+import org.jfree.chart.renderer.xy.XYLineAndShapeRenderer;
 import org.jfree.data.statistics.DefaultStatisticalCategoryDataset;
 import org.jfree.data.xy.XYSeries;
 import org.jfree.data.xy.XYSeriesCollection;
@@ -32,8 +33,16 @@ public class ChartPanelFactory {
 		case SCATTER:
 			return createScatterChart(yearValues);
 		default:
-			return createBarChart(yearValues);
+			return createTimelineChart(yearValues);
 		}
+	}
+
+	private static ChartPanel createTimelineChart(List<YearValue> yearValues) {
+		ChartPanel scatterPanel = createScatterChart(yearValues);
+
+		JFreeChart chart = scatterPanel.getChart();
+		chart.getXYPlot().setRenderer(new XYLineAndShapeRenderer());
+		return scatterPanel;
 	}
 
 	private static ChartPanel createScatterChart(List<YearValue> yearValues) {
