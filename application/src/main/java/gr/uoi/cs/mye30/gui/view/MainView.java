@@ -23,7 +23,7 @@ import javax.swing.SpinnerNumberModel;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
-import gr.uoi.cs.mye30.gui.ChartType;
+import gr.uoi.cs.mye30.gui.chart.ChartType;
 
 @SuppressWarnings("serial")
 public class MainView extends JFrame implements ChangeListener {

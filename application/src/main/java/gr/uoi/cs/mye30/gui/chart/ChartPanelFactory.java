@@ -20,7 +20,6 @@ import org.jfree.data.xy.XYSeries;
 import org.jfree.data.xy.XYSeriesCollection;
 
 import gr.uoi.cs.mye30.entity.YearValue;
-import gr.uoi.cs.mye30.gui.ChartType;
 
 public class ChartPanelFactory {
 	private static final Color CHART_BACKGROUND = new Color(240, 240, 240);
