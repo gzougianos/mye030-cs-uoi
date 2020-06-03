@@ -26,7 +26,7 @@ public class ChartPanelFactory {
 	private static final Color CHART_BACKGROUND = new Color(240, 240, 240);
 	private static final NumberFormat yearValueFormatter = new DecimalFormat("00");
 
-	public static ChartPanel create(ChartType type, List<YearValue> yearValues, int fromYear, int toYear) {
+	public static ChartPanel create(ChartType type, List<YearValue> yearValues) {
 		switch (type) {
 		case BAR:
 			return createBarChart(yearValues);
