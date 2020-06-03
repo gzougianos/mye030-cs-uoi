@@ -2,6 +2,7 @@ package gr.uoi.cs.mye30.gui.controller;
 
 import java.sql.SQLException;
 
+import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import javax.swing.text.AbstractDocument;
 
@@ -27,6 +28,16 @@ public class AskDatabaseInformationController {
 		makePortTextFieldAcceptOnlyNumbers();
 		initConnectButton();
 		addConnectListenerToAllTextFields();
+		initExitButton();
+	}
+
+	private void initExitButton() {
+		view.getExitButton().addActionListener(e -> {
+			int ans = JOptionPane.showConfirmDialog(null, "Are you sure you want to exit?");
+			if (ans == JOptionPane.OK_OPTION) {
+				System.exit(0);
+			}
+		});
 	}
 
 	private void initConnectButton() {
